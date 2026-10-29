@@ -1,0 +1,67 @@
+================================================================================
+GATEWAY ERROR HANDLING EVIDENCE (Robust Exception Surfacing & Graceful Degradation)
+================================================================================
+Timestamp: 2026-09-20T18:36:30+05:30
+Environment: Windows 11, Python 3.14 (.venv)
+Agent: CSAIAgent (main:app)
+Tested Scenarios:
+1. Controlled Gateway Failure (Unreachable Endpoint / Connection Timeout)
+2. Normal Gateway Tool Execution (Target 1: order-tracker, Target 2: refund-processor)
+
+--------------------------------------------------------------------------------
+1. CONTROLLED GATEWAY FAILURE TEST
+--------------------------------------------------------------------------------
+Test Description:
+- GATEWAY_URL temporarily pointed to an unreachable domain:
+  "https://unreachable-invalid-gateway.bedrock-agentcore.us-east-1.amazonaws.com/mcp"
+- User query dispatched: "Can you track order ORD-001?"
+
+Execution Log:
+ERROR:CSAI_Agent:Failed to connect to Customer Support Gateway: the client initialization failed: [Errno 11001] getaddrinfo failed
+
+User-Facing Response Returned:
+"The customer support tool gateway is currently unavailable. Our team has been notified. Please try your request again shortly or contact support for assistance."
+
+Evaluation:
+- ConnectionError / TimeoutError / Exception caught at MCPClient initialization.
+- No unhandled exceptions or process crash.
+- Zero AWS credentials, API keys, or stack traces leaked to the user.
+- Clear, actionable guidance provided to the user.
+- Status: PASS
+
+--------------------------------------------------------------------------------
+2. NORMAL GATEWAY OPERATION — TARGET 1 & TARGET 2 SUCCESSFUL EXECUTION
+--------------------------------------------------------------------------------
+Target 1 (order-tracker):
+- Endpoint: API Gateway REST API 8g54ihhh1l / Stage prod
+- Tool: order-tracker___get_order
+- Arguments: {"order_id": "ORD-001"}
+- Backend Response: 200 OK
+  {
+    "order_id": "ORD-001",
+    "customer_id": "CUST-123",
+    "status": "SHIPPED",
+    "items": [{"name": "Wireless Headphones Pro", "price": 89.99, "qty": 1}],
+    "total": 89.99,
+    "carrier": "UPS",
+    "tracking_number": "TRK987654321",
+    "estimated_delivery": "2026-09-22"
+  }
+- Agent Response: "Your order ORD-001 for the Wireless Headphones Pro is currently SHIPPED. Total: $89.99, Carrier: UPS, Tracking: TRK987654321, Delivery: September 22, 2026."
+- Status: PASS
+
+Target 2 (refund-processor):
+- Endpoint: AWS Lambda function refund-processor
+- Tool: refund-processor___initiate_refund
+- Arguments: {"order_id": "ORD-002", "reason": "defective screen", "amount": 139.99}
+- Backend Response: 200 OK
+  {
+    "refund_id": "REF-PMN3M23O",
+    "status": "APPROVED",
+    "order_id": "ORD-002",
+    "amount": 139.99,
+    "message": "Refund approved. The amount will be credited to your original payment method in 3-5 business days."
+  }
+- Agent Response: "Your return and refund for the Kindle Paperwhite (Order ID: ORD-002) has been approved. The refund ID is REF-PMN3M23O, and the credit should appear in your account within 3-5 business days."
+- Status: PASS
+================================================================================

@@ -1,0 +1,107 @@
+[
+  {
+    "test": {
+      "id": "Test 1 \u2014 Order Tracking",
+      "description": "Checks order ORD-001 status, carrier, tracking number, and delivery date via Gateway order-tracker tool.",
+      "payload": {
+        "prompt": "Can you track order ORD-001?",
+        "customer_id": "CUST-123",
+        "session_id": "t1"
+      },
+      "expected": "shipping status, tracking number TRK987654321, carrier UPS, estimated delivery"
+    },
+    "response": "Your order **ORD-001** for the Wireless Headphones Pro is currently **SHIPPED**. Here are the details:\n\n- **Item:** Wireless Headphones Pro (1 x $89.99)  \n- **Total:** $89.99  \n- **Carrier:** UPS  \n- **Tracking Number:** TRK987654321  \n- **Estimated Delivery:** September 22, 2026  \n\nYou can track the shipment using the tracking number with UPS. Let me know if you need further assistance!",
+    "duration": 9.278780460357666,
+    "status": "PASS"
+  },
+  {
+    "test": {
+      "id": "Test 2 \u2014 Refund Processing",
+      "description": "Initiates a return and refund for Kindle Paperwhite (ORD-002) via Gateway refund-processor tool.",
+      "payload": {
+        "prompt": "I want to return my Kindle Paperwhite (ORD-002). Please initiate a refund.",
+        "customer_id": "CUST-123",
+        "session_id": "t2"
+      },
+      "expected": "refund ID, APPROVED status, 3-5 business days message"
+    },
+    "response": "Your return and refund for the Kindle Paperwhite (Order ID: ORD-002) has been approved. The refund ID is **REF-PMN3M23O**, and the credit should appear in your account within 3-5 business days. \n\nIf you have any further questions, I'm here to help!",
+    "duration": 5.479771852493286,
+    "status": "PASS"
+  },
+  {
+    "test": {
+      "id": "Test 3 \u2014 Knowledge Base (RAG)",
+      "description": "Retrieves Platinum loyalty tier benefits from Bedrock Knowledge Base.",
+      "payload": {
+        "prompt": "What are the benefits of the Platinum loyalty tier?",
+        "customer_id": "CUST-123",
+        "session_id": "t3"
+      },
+      "expected": "free same-day shipping, 15% discount, priority support"
+    },
+    "response": "Based on the knowledge base information, here are the benefits of the Platinum loyalty tier:\n\n**Platinum Tier Benefits:**\n- **Free same-day shipping** on eligible orders\n- **15% discount** on purchases (compared to Gold's 10% discount on accessories only)\n- **Priority customer support** for faster assistance\n\nThe Platinum tier requires 5,000 or more points to achieve, placing it above the Gold tier (1,000 to 4,999 points) and Silver tier (0 to 999 points). \n\nAs a Gold member with 4,250 points, you're close to reaching Platinum status with just 750 more points needed.",
+    "duration": 7.10405421257019,
+    "status": "PASS"
+  },
+  {
+    "test": {
+      "id": "Test 4A \u2014 Memory (Introduce Preference)",
+      "description": "Session A: Customer introduces name Jane and preference for concise responses.",
+      "payload": {
+        "prompt": "Hi, I am Jane. I prefer concise responses.",
+        "customer_id": "CUST-123",
+        "session_id": "s-A"
+      },
+      "expected": "Acknowledges customer name Jane and communication preference"
+    },
+    "response": "Here\u2019s the status of your order **ORD-001**:\n\n- **Status:** Shipped  \n- **Item:** Wireless Headphones Pro  \n- **Total:** $89.99  \n- **Carrier:** UPS  \n- **Tracking Number:** TRK987654321  \n- **Estimated Delivery:** September 22, 2026  \n\nLet me know if you need anything else!",
+    "duration": 5.4672629833221436,
+    "status": "PASS"
+  },
+  {
+    "test": {
+      "id": "Test 4B \u2014 Memory Recall Across Sessions",
+      "description": "Session B: Tests recall of Jane's name and communication preference from AgentCore Memory.",
+      "payload": {
+        "prompt": "Do you remember my name and communication preference?",
+        "customer_id": "CUST-123",
+        "session_id": "s-B"
+      },
+      "expected": "Recalls Jane and preference for concise responses across sessions"
+    },
+    "response": "Yes, Jane. I remember you prefer concise responses. I'm here to help with your order or loyalty points if you need anything.",
+    "duration": 4.036105155944824,
+    "status": "PASS"
+  },
+  {
+    "test": {
+      "id": "Test 5 \u2014 Loyalty Discount Calculation",
+      "description": "Calculates exact loyalty discount using Code Interpreter sandbox for Gold tier with 4250 points on $150 order.",
+      "payload": {
+        "prompt": "I am a Gold member with 4250 points. Calculate my discount on a $150 standard order.",
+        "customer_id": "CUST-123",
+        "session_id": "t5"
+      },
+      "expected": "points redeemed, tier discount 10%, final total, remaining points"
+    },
+    "response": "**Your Gold Member Discount Breakdown:**\n\n- **Order Total:** $150.00\n- **Points Redeemed:** 4,000 points ($40.00 value)\n- **Gold Tier Discount:** 10% ($15.00)\n- **Final Total After Discounts:** **$99.00**\n- **Total Savings:** **$51.00**\n- **Remaining Points:** 250 points\n- **New Points Earned:** 99 points\n\n**Summary:**  \nAs a Gold member, you saved **$51** on your $150 order, bringing your final cost down to **$99**. You still have **250 points** remaining to use toward future purchases.",
+    "duration": 13.480005741119385,
+    "status": "PASS"
+  },
+  {
+    "test": {
+      "id": "Test 6 \u2014 Browser Tool",
+      "description": "Navigates to external website via Browser tool and extracts page title.",
+      "payload": {
+        "prompt": "Go to https://www.amazon.com and tell me the page title.",
+        "customer_id": "CUST-123",
+        "session_id": "t6"
+      },
+      "expected": "Page title retrieved from live Amazon.com"
+    },
+    "response": "The page title for https://www.amazon.com is **\"Amazon.com. Spend less. Smile more.\"**",
+    "duration": 54.30083227157593,
+    "status": "PASS"
+  }
+]

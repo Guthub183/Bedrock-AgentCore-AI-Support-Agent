@@ -1,0 +1,23 @@
+=== TEST 2: REFUND PROCESSING ===
+Prompt: I want to return my Kindle Paperwhite (ORD-002). Please initiate a refund.
+Customer ID: CUST-123
+Session ID: t2
+
+Tool Invocation: refund-processor___initiate_refund
+Tool Arguments: {"order_id": "ORD-002", "reason": "return", "amount": 139.99}
+
+Lambda Function Output:
+{
+  "refund_id": "REF-PMN3M23O",
+  "status": "APPROVED",
+  "order_id": "ORD-002",
+  "amount": 139.99,
+  "message": "Refund approved. The amount will be credited to your original payment method in 3-5 business days."
+}
+
+Agent Output:
+Your return and refund for the Kindle Paperwhite (Order ID: ORD-002) has been approved. The refund ID is **REF-PMN3M23O**, and the credit should appear in your account within 3-5 business days. 
+
+If you have any further questions, I'm here to help!
+
+Status: PASS

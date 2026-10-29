@@ -1,0 +1,14 @@
+=== TEST 6: BROWSER TOOL ===
+Prompt: Go to https://www.amazon.com and tell me the page title.
+Customer ID: CUST-123
+Session ID: t6
+
+Tool Invocation: browser
+Action: navigate -> https://www.amazon.com
+Action: get_title
+Returned Title: "Amazon.com. Spend less. Smile more."
+
+Agent Output:
+The page title for https://www.amazon.com is **"Amazon.com. Spend less. Smile more."**
+
+Status: PASS

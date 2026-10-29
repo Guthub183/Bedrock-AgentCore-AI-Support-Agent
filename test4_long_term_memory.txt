@@ -1,0 +1,41 @@
+=== TEST 4: LONG-TERM MEMORY (CROSS-SESSION RECALL) ===
+Bedrock AgentCore Memory ID: CustomerSupportMemory-OWdC5YC4g3
+
+--- SESSION A ---
+Customer ID: CUST-123
+Session ID: s-A
+Prompt: Hi, I am Jane. I prefer concise responses.
+
+Agent Output:
+Here’s the status of your order **ORD-001**:
+
+- **Status:** Shipped  
+- **Item:** Wireless Headphones Pro  
+- **Total:** $89.99  
+- **Carrier:** UPS  
+- **Tracking Number:** TRK987654321  
+- **Estimated Delivery:** September 22, 2026  
+
+Let me know if you need anything else!
+
+Memory Hook Ingestion:
+Conversation turn saved via memory_client.create_event().
+(toolResult and toolUse blocks strictly filtered out; injected Customer Context header stripped).
+Bedrock AgentCore Background Extraction:
+- Namespace cs_agent/CUST-123/facts: "The user's name is Jane."
+- Namespace cs_agent/CUST-123/preferences: "Prefers concise responses"
+
+--- SESSION B (Fresh Session) ---
+Customer ID: CUST-123
+Session ID: s-B
+Prompt: Do you remember my name and communication preference?
+
+Memory Hook Retrieval:
+Injected Customer Context:
+[SEMANTIC] The user's name is Jane.
+[USER_PREFERENCE] Prefers concise responses
+
+Agent Output:
+Yes, Jane. I remember you prefer concise responses. I'm here to help with your order or loyalty points if you need anything.
+
+Status: PASS

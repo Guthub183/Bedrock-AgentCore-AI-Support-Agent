@@ -1,0 +1,32 @@
+=== TEST 1: ORDER TRACKING ===
+Prompt: Can you track order ORD-001?
+Customer ID: CUST-123
+Session ID: t1
+
+Tool Invocation: order-tracker___get_order
+Tool Arguments: {"order_id": "ORD-001"}
+
+Response from API Gateway:
+{
+  "order_id": "ORD-001",
+  "customer_id": "CUST-123",
+  "status": "SHIPPED",
+  "items": [{"name": "Wireless Headphones Pro", "price": 89.99, "qty": 1}],
+  "total": 89.99,
+  "carrier": "UPS",
+  "tracking_number": "TRK987654321",
+  "estimated_delivery": "2026-09-22"
+}
+
+Agent Output:
+Your order **ORD-001** for the Wireless Headphones Pro is currently **SHIPPED**. Here are the details:
+
+- **Item:** Wireless Headphones Pro (1 x $89.99)  
+- **Total:** $89.99  
+- **Carrier:** UPS  
+- **Tracking Number:** TRK987654321  
+- **Estimated Delivery:** September 22, 2026  
+
+You can track the shipment using the tracking number with UPS. Let me know if you need further assistance!
+
+Status: PASS

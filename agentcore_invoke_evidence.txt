@@ -1,0 +1,47 @@
+================================================================================
+AGENTCORE CLI INVOCATION EVIDENCE (Bedrock AgentCore Starter Toolkit CLI)
+================================================================================
+Timestamp: 2026-09-20T18:36:00+05:30
+Environment: Windows 11, Python 3.14 (.venv)
+Agent: CSAIAgent (main:app)
+Server Mode: Development Server (agentcore dev --port 8080)
+Command: agentcore invoke --dev '{"prompt": "Can you track order ORD-001?", "customer_id": "CUST-123", "session_id": "cli-test-1"}'
+
+--------------------------------------------------------------------------------
+1. SERVER STARTUP LOG (agentcore dev)
+--------------------------------------------------------------------------------
+> $env:PYTHONIOENCODING="utf-8"; $env:PYTHONUTF8="1"
+> agentcore dev --port 8080
+
+🚀 Starting development server with hot reloading
+Agent: CSAIAgent
+Language: Python
+Module: main:app
+💡 Test your agent with: agentcore invoke --dev "Hello" in a new terminal window
+ℹ️  This terminal window will be used to run the dev server 
+Press Ctrl+C to stop the server
+
+Server will be available at:
+  • Localhost: http://localhost:8080/invocations
+  • 127.0.0.1: http://127.0.0.1:8080/invocations
+  • Local network: http://192.168.1.9:8080/invocations
+
+INFO:     Will watch for changes in these directories: ['C:\\Users\\ksaty\\OneDrive\\Desktop\\Project Al Support Agent\\starter']
+INFO:     Uvicorn running on http://0.0.0.0:8080 (Press CTRL+C to quit)
+INFO:     Started reloader process using StatReload
+
+--------------------------------------------------------------------------------
+2. RUNTIME INVOCATION COMMAND & RESPONSE (agentcore invoke --dev)
+--------------------------------------------------------------------------------
+> $env:PYTHONIOENCODING="utf-8"; $env:PYTHONUTF8="1"
+> agentcore invoke --dev '{"prompt": "Can you track order ORD-001?", "customer_id": "CUST-123", "session_id": "cli-test-1"}'
+
+✓ Response from dev server:
+{
+    'response': '"I\'ve successfully tracked your order **ORD-001**. Here are the details:\\n\\n**Order Status:** SHIPPED  \\n**Items:**  \\n- Wireless Headphones Pro (1 x $89.99)\\n\\n**Total:** $89.99  \\n**Carrier:** UPS  \\n**Tracking Number:** TRK987654321  \\n**Estimated Delivery:** September 22, 2026\\n\\nYour order is currently in transit and expected to be delivered by September 22. You can track the package using the tracking number TRK987654321 on the UPS website or app for real-time updates."'
+}
+
+Status Code: 0 (SUCCESS)
+Tool Executed: order-tracker___get_order via MCP Gateway
+Returned Data: Status SHIPPED, Tracking TRK987654321, Carrier UPS, Estimated Delivery September 22, 2026
+================================================================================

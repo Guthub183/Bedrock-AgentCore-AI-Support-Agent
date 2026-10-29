@@ -1,0 +1,49 @@
+=====================================================================================
+LOYALTY DISCOUNT BOUNDARY & 50% CAP TEST SUITE (AGENTCORE CODE INTERPRETER)
+=====================================================================================
+Timestamp: 2026-09-20T18:43:00+05:30
+Runtime: Amazon Bedrock AgentCore Code Interpreter Sandbox (us-east-1)
+
+[PASS] Case 1: Below 500 boundary (450 pts, $100 order)
+       Rationale: Eligible points (450) < 500 minimum block; 0 points redeemed.
+       Points Redeemed: 0 (Expected: 0)
+       Order: $100.0 | Final Total: $100.0 | Remaining Points: 550
+-------------------------------------------------------------------------------------
+[PASS] Case 2: Just below 500 boundary (499 pts, $100 order)
+       Rationale: Eligible points (499) < 500 minimum block; 0 points redeemed.
+       Points Redeemed: 0 (Expected: 0)
+       Order: $100.0 | Final Total: $100.0 | Remaining Points: 599
+-------------------------------------------------------------------------------------
+[PASS] Case 3: Exactly at 500 boundary (500 pts, $100 order)
+       Rationale: Eligible points exactly 500; 1 block of 500 redeemed ($5.00 discount).
+       Points Redeemed: 500 (Expected: 500)
+       Order: $100.0 | Final Total: $95.0 | Remaining Points: 95
+-------------------------------------------------------------------------------------
+[PASS] Case 4: Just above 500 boundary (550 pts, $100 order)
+       Rationale: Eligible points (550) floored to nearest 500-point block (500).
+       Points Redeemed: 500 (Expected: 500)
+       Order: $100.0 | Final Total: $95.0 | Remaining Points: 145
+-------------------------------------------------------------------------------------
+[PASS] Case 5: Above 1000 boundary (1499 pts, $100 order)
+       Rationale: Eligible points (1499) floored to nearest 500-point block (1000).
+       Points Redeemed: 1000 (Expected: 1000)
+       Order: $100.0 | Final Total: $81.0 | Remaining Points: 580
+-------------------------------------------------------------------------------------
+[PASS] Case 6: 50% order cap exact (4000 pts, $50 order)
+       Rationale: 50% of $50 = $25 (2500 pts). 2500 is multiple of 500; exactly 2500 redeemed.
+       Points Redeemed: 2500 (Expected: 2500)
+       Order: $50.0 | Final Total: $25.0 | Remaining Points: 1525
+-------------------------------------------------------------------------------------
+[PASS] Case 7: 50% order cap flooring (4000 pts, $55 order)
+       Rationale: 50% of $55 = $27.50 (2750 pts). Floored to nearest 500 block = 2500 pts.
+       Points Redeemed: 2500 (Expected: 2500)
+       Order: $55.0 | Final Total: $30.0 | Remaining Points: 1530
+-------------------------------------------------------------------------------------
+[PASS] Case 8: Small order below 500 pts cap (5000 pts, $8 order)
+       Rationale: 50% of $8 = $4.00 (400 pts max). 400 < 500; 0 points redeemed.
+       Points Redeemed: 0 (Expected: 0)
+       Order: $8.0 | Final Total: $8.0 | Remaining Points: 5008
+-------------------------------------------------------------------------------------
+=====================================================================================
+OVERALL RESULT: ALL 8 BOUNDARY TESTS PASSED!
+=====================================================================================

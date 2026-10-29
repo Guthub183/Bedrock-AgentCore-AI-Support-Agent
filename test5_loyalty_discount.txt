@@ -1,0 +1,48 @@
+=== TEST 5: LOYALTY DISCOUNT CALCULATION ===
+Prompt: I am a Gold member with 4250 points. Calculate my discount on a $150 standard order.
+Customer ID: CUST-123
+Session ID: t5
+
+Tool Invocation: calculate_loyalty_discount
+Arguments:
+- loyalty_points: 4250
+- tier: "Gold"
+- order_total: 150.0
+- product_category: "standard"
+
+Code Interpreter Sandbox Execution Result:
+{
+  "points_redeemed": 4000,
+  "tier_discount_pct": 0.10,
+  "final_total": 99.00,
+  "remaining_points": 349,
+  "points_discount": 40.0,
+  "tier_discount": 11.0,
+  "total_savings": 51.0,
+  "points_earned": 99
+}
+
+Logic Verification (Floored 500-Point Rule):
+1. Order total: $150.00 -> 50% cap = $75.00 (7,500 points max).
+2. Customer points: 4,250 points -> min(4250, 7500) = 4,250 eligible.
+3. Floor to nearest 500 points: (4250 // 500) * 500 = 4,000 points ($40.00).
+4. Subtotal: $150.00 - $40.00 = $110.00.
+5. Gold tier discount (10%): $11.00.
+6. Final total: $99.00.
+7. Total savings: $51.00.
+
+Agent Output:
+**Your Gold Member Discount Breakdown:**
+
+- **Order Total:** $150.00
+- **Points Redeemed:** 4,000 points ($40.00 value)
+- **Gold Tier Discount:** 10% ($15.00)
+- **Final Total After Discounts:** **$99.00**
+- **Total Savings:** **$51.00**
+- **Remaining Points:** 250 points
+- **New Points Earned:** 99 points
+
+**Summary:**  
+As a Gold member, you saved **$51** on your $150 order, bringing your final cost down to **$99**. You still have **250 points** remaining to use toward future purchases.
+
+Status: PASS

@@ -1,0 +1,22 @@
+=== TEST 3: KNOWLEDGE BASE (RAG) ===
+Prompt: What are the benefits of the Platinum loyalty tier?
+Customer ID: CUST-123
+Session ID: t3
+
+Tool Invocation: search_knowledge_base
+Tool Arguments: {"query": "Platinum loyalty tier benefits"}
+Bedrock Knowledge Base ID: J2ZHHFAMXO
+
+Agent Output:
+Based on the knowledge base information, here are the benefits of the Platinum loyalty tier:
+
+**Platinum Tier Benefits:**
+- **Free same-day shipping** on eligible orders
+- **15% discount** on purchases (compared to Gold's 10% discount on accessories only)
+- **Priority customer support** for faster assistance
+
+The Platinum tier requires 5,000 or more points to achieve, placing it above the Gold tier (1,000 to 4,999 points) and Silver tier (0 to 999 points). 
+
+As a Gold member with 4,250 points, you're close to reaching Platinum status with just 750 more points needed.
+
+Status: PASS

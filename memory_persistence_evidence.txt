@@ -1,0 +1,41 @@
+================================================================================
+MEMORY INTERACTION PERSISTENCE EVIDENCE (Event Payload Verification)
+================================================================================
+Timestamp: 2026-09-20T18:43:40+05:30
+Environment: Windows 11, Python 3.14 (.venv)
+Component: MemoryHook.save_support_interaction()
+
+--------------------------------------------------------------------------------
+1. TEST EXECUTION & PAYLOAD VERIFICATION
+--------------------------------------------------------------------------------
+Test Scenario:
+- Complex invocation turn containing:
+  1. User message prepended with retrieved customer context:
+     "Customer Context:\n[SEMANTIC] The user's name is Jane.\n\nCan you track order ORD-001?"
+  2. Assistant tool-use message:
+     {"toolUse": {"toolUseId": "tool-1", "name": "order-tracker___get_order", "input": {"order_id": "ORD-001"}}}
+  3. Tool-result message (role: "user" in Bedrock Converse format):
+     {"toolResult": {"toolUseId": "tool-1", "content": [{"text": "{\"status\": \"SHIPPED\"}"}]}}
+  4. Assistant final plain-text answer:
+     {"text": "Your order ORD-001 is currently SHIPPED."}
+
+Execution Results:
+- Memory Client create_event called: TRUE
+- Keyword Arguments Passed to memory_client.create_event:
+  * actor_id: "CUST-123"
+  * session_id: "s-test"
+  * memory_id: "CustomerSupportMemory-OWdC5YC4g3"
+  * messages: [
+      ("Can you track order ORD-001?", "USER"),
+      ("Your order ORD-001 is currently SHIPPED.", "ASSISTANT")
+    ]
+
+Validation Checks:
+- User Message Content: 'Can you track order ORD-001?' (PASS)
+- Assistant Message Content: 'Your order ORD-001 is currently SHIPPED.' (PASS)
+- Tool-Result Filtered Out: True (PASS - toolResult was NOT treated as user input)
+- Injected Customer Context Stripped: True (PASS - 'Customer Context:\n...' was removed)
+- Exact Roles: ("USER", "ASSISTANT") (PASS)
+
+Status: 100% PASSED
+================================================================================
